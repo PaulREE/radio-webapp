@@ -4,7 +4,7 @@
 
 export const handler = async () => {
   try {
-    const resp = await fetch('https://main.inf.fm:8101/currentsong?sid=1', {
+    const resp = await fetch('https://main.inf.fm:9101/currentsong?sid=1', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (NetlifyServerProxy)'
       }
