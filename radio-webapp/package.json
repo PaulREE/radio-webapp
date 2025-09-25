@@ -2,7 +2,5 @@
   "name": "radio-webapp",
   "private": true,
   "type": "module",
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  }
+  "dependencies": {}
 }
