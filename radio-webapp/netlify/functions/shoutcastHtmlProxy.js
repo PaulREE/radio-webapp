@@ -1,8 +1,9 @@
-import fetch from 'node-fetch';
+// netlify/functions/shoutcastHtmlProxy.js
+
+// убрали import fetch from 'node-fetch';
 
 export const handler = async () => {
   try {
-    // Запрашиваем текущий трек напрямую
     const resp = await fetch('https://main.inf.fm:8101/currentsong?sid=1', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (NetlifyServerProxy)'
@@ -10,7 +11,6 @@ export const handler = async () => {
     });
     const data = await resp.text();
 
-    // Разделяем строку с ' - ' на артиста и трек
     let artist = '', title = '';
     if (data.includes(' - ')) {
       [artist, title] = data.split(' - ', 2);
@@ -20,7 +20,10 @@ export const handler = async () => {
 
     return {
       statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8' },
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json; charset=utf-8'
+      },
       body: JSON.stringify({ artist, title, raw: data.trim() })
     };
   } catch (e) {
