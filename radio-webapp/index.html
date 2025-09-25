@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Информатор FM - трек онлайн</title>
+  <style>
+    body { background: #181b1f; color: #e5eef7; font-family: Arial, sans-serif; padding: 26px }
+    .card { background: #233; border-radius: 12px; padding: 22px; max-width: 400px; margin: 0 auto; }
+    .row { margin: 0 0 16px 0; }
+    .label { color: #9aa4b2; margin-right:8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="row"><span class="label">Исполнитель:</span> <span id="artist-name">загрузка…</span></div>
+    <div class="row"><span class="label">Трек:</span> <span id="track-title">загрузка…</span></div>
+  </div>
+  <script>
+    async function updateTrackInfo() {
+      const url = '/.netlify/functions/shoutcastHtmlProxy';
+      try {
+        const r = await fetch(url);
+        const d = await r.json();
+        document.getElementById('artist-name').textContent = d.artist || 'нет данных';
+        document.getElementById('track-title').textContent = d.title || 'нет данных';
+      } catch {
+        document.getElementById('artist-name').textContent = 'Ошибка';
+        document.getElementById('track-title').textContent = 'Ошибка';
+      }
+    }
+    updateTrackInfo();
+    setInterval(updateTrackInfo, 15000);
+  </script>
+</body>
+</html>
